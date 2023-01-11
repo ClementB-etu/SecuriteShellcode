@@ -1,3 +1,5 @@
+//COMPILATION : gcc -fno-stack-protector -z execstack shellcode01.c -o shellcode01
+
 #include <stdio.h>
 
 unsigned char shellcode[] = \
