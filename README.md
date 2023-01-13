@@ -20,9 +20,4 @@ Création de shellcode : ./create_shellcode {asm32 OU asm64} {asm01,...}
 
 Après compilation des executables que nous voulons transformer en shellcode : 
 
-msfvenom -a x86 --platform linux -e x86/shikata_ga_nai -f c -o asm01_x86.shellcode < asm32/asm01
-msfvenom -a x86 --platform linux -e x86/shikata_ga_nai -f c -o asm02_x86.shellcode < asm32/asm02 
-msfvenom -a x86 --platform linux -e x86/shikata_ga_nai -f c -o asm03_x86.shellcode < asm32/asm03 
-msfvenom -a x86 --platform linux -e x86/shikata_ga_nai -f c -o asm04_x86.shellcode < asm32/asm04 
-msfvenom -a x86 --platform linux -e x86/shikata_ga_nai -f c -o asm05_x86.shellcode < asm32/asm05 
-msfvenom -a x86 --platform linux -e x86/shikata_ga_nai -f c -o asm06_x86.shellcode < asm32/asm06 
+msfvenom -a x86 --platform linux -e x86/shikata_ga_nai -f c -o asm01_x86.shellcode < asm32/asm01 par exemple
