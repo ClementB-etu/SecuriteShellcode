@@ -6,8 +6,7 @@ BELLEIL Clément - ING3 CYBERSECURITE GROUPE A
 
 # Compilation et Execution
 
-Compilation :   - se placer dans le dossier asm32 ou asm64
-                - ./build.sh asm01
+Compilation :   - se placer dans le dossier asm32 ou asm64 ET ./build.sh asm01
 
 Execution :     - ./asm01
 
