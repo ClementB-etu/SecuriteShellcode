@@ -6,7 +6,7 @@ BELLEIL Clément - ING3 CYBERSECURITE GROUPE A
 
 # Compilation et Execution
 
-Compilation :   - se placer dans le dossier asm32 ou asm64 ET ./build.sh asm01
+Compilation :   - se placer dans le dossier asm32 ou asm64 ET ./build.sh asm01 par exemple
 
 Execution :     - ./asm01
 
@@ -14,4 +14,4 @@ Execution :     - ./asm01
 
 Après compilation du programme :
 
-Création de shellcode : ./create_shellcode {asm32, asm64} {asm01,...}
+Création de shellcode : ./create_shellcode {asm32 OU asm64} {asm01,...}
