@@ -1,6 +1,5 @@
 section .bss
-    input: resb 64
-    input_len: equ $-input
+    input resb 16
 
 section .data
     prompt     db      "Entrer un nombre (retourne 1 si impair, 0 sinon):"
@@ -20,21 +19,27 @@ _start:
     mov eax, 3
     mov ebx, 0
     mov ecx, input
-    mov edx, input_len
-    int 0x80
+    mov edx, 16
+    int 80h
 
-    ; cmp pair
-    mov eax, [input]
-    and eax, 1
-    cmp eax, 0
-    je si_pair
+    mov ecx, 16 ;16 : taille du buff
+loop:
+    mov al,[input+ecx]
+    cmp al, 10 ;comparaison avec saut de ligne
+    je check_pair
 
-    ; 1 si impair
+    dec ecx
+    cmp ecx, 0
+    je end
+    jmp loop
+
+check_pair:
+    mov eax, input
+    add eax, ecx ; ecx est à la position du saut de ligne
+    dec eax ; Juste avant ecx, dernier caractère de l'input 
+    mov bl, [eax]
+    and bl, 1
+end:
     mov eax, 1
-    mov ebx, 1
-    int 0x80
-
-si_pair:
-    mov eax, 1
-    mov ebx, 0
-    int 0x80
+    ;mov ebx, 0 ;bl dépend de la parité du nombre, ebx est 0 ou 1 suivant la parité avec le and
+    int 80h
